@@ -1,5 +1,7 @@
 using EncryptedChat.Bll.Interfaces;
 using EncryptedChat.Bll.Services;
+using EncryptedChat.Bll.Services.Repositories;
+using EncryptedChat.Data;
 using EncryptedChat.Data.Entities;
 using EncryptedChat.Server.Hubs;
 using EncrytedChat.Bll.Services.Repositories;
@@ -38,8 +40,17 @@ builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews();
 //builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 builder.Services.AddScoped<CryptoService>();
-builder.Services.AddScoped(serviceProvider => new DataStore(path, useLowerCamelCase: false));
-builder.Services.AddScoped<IRepository<User>, UserJsonRepository>();
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddScoped(serviceProvider => new DataStore(path, useLowerCamelCase: false));
+    builder.Services.AddScoped<IRepository<User>, UserJsonRepository>();
+}
+else
+{
+    builder.Services.AddDbContext<EncryptedChatDbContext>();
+    builder.Services.AddScoped<IRepository<User>, UserSqlRepository>();
+}
 
 var app = builder.Build();
 

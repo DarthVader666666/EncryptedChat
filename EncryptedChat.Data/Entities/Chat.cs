@@ -2,8 +2,8 @@
 {
     public class Chat
     {
-        public Guid ChatId { get; set; }
         public Guid UserOneId { get; set; }
-        public Guid UserTwoIdId { get; set; }
+        public Guid UserTwoId { get; set; }
+        public ICollection<User>? Participants { get; set; }
     }
 }

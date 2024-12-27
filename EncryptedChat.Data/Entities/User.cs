@@ -8,6 +8,7 @@
         public byte[]? Avatar { get; set; }
         public string? Ip { get; set; }
         public ICollection<User>? Contacts { get; set; }
+        public ICollection<Chat>? Chats { get; set; }
         public ICollection<Group>? Groups { get; set; }
         public ICollection<Message>? Messages { get; set; }
     }

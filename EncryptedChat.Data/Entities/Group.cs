@@ -2,9 +2,9 @@
 {
     public class Group
     {
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; }
         public Guid OwnerId { get; set; }
         public string? GroupName { get; set; }
-        public ICollection<User>? Users { get; set; }
+        public ICollection<User>? Participants { get; set; }
     }
 }
